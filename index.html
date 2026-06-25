@@ -9,196 +9,291 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  :root {
-    --blanco: #ffffff;
-    --fondo: #f8f7f5;
-    --gris: #f0eeeb;
-    --gris2: #e4e1dc;
-    --texto: #181816;
-    --texto2: #55534e;
-    --texto3: #999590;
-    --coral: #d4573a;
-    --coral-light: #fdf0ed;
-    --verde: #2a8a5c;
-    --verde-light: #edf8f1;
-    --dorado: #b8860b;
-    --dorado-light: #fdf8ec;
-    --wa: #25d366;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    background:#eae8e4;
-    min-height:100vh;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;
-    padding:16px;
-  }
+:root{--blanco:#fff;--fondo:#f8f7f5;--gris:#f0eeeb;--gris2:#e4e1dc;--texto:#181816;--texto2:#55534e;--texto3:#999590;--coral:#d4573a;--coral-light:#fdf0ed;--verde:#2a8a5c;--verde-light:#edf8f1;--dorado:#b8860b;--dorado-light:#fdf8ec;--wa:#25d366}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#eae8e4;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;padding:16px;overflow-x:hidden}
 
-  .flyer{
-    width:540px;max-width:98vw;
-    background:var(--blanco);
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 2px 6px rgba(0,0,0,.04),0 12px 40px rgba(0,0,0,.07),0 40px 80px rgba(0,0,0,.05);
-    animation:up .55s cubic-bezier(.22,.68,0,1.1) both;
-    transition:transform .4s cubic-bezier(.22,.68,0,1.1),box-shadow .4s ease;
-  }
-  .flyer:hover{transform:translateY(-3px);box-shadow:0 2px 6px rgba(0,0,0,.04),0 16px 50px rgba(0,0,0,.1),0 50px 100px rgba(0,0,0,.07);}
-  @keyframes up{from{opacity:0;transform:translateY(36px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* ===== PRESENTACION ===== */
+.presentacion{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:#eae8e4;transition:opacity .6s ease,transform .6s cubic-bezier(.4,0,.2,1)}
+.presentacion.salida{opacity:0;transform:scale(.92);pointer-events:none}
 
-  .bar{position:absolute;left:0;top:0;bottom:0;width:4px;z-index:5;background:linear-gradient(180deg,var(--coral),var(--verde) 50%,var(--dorado));}
+.particulas{position:fixed;inset:0;z-index:99;pointer-events:none;overflow:hidden}
+.part{position:absolute;border-radius:50%;opacity:.07;animation:flotar 8s ease-in-out infinite}
+.p1{width:200px;height:200px;background:var(--coral);top:8%;left:-5%}
+.p2{width:160px;height:160px;background:var(--verde);bottom:8%;right:-3%;animation-delay:-3s;animation-duration:10s}
+.p3{width:120px;height:120px;background:var(--dorado);top:45%;left:55%;animation-delay:-6s;animation-duration:12s}
+@keyframes flotar{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-15px) scale(1.06)}}
 
-  .hd{position:relative;padding:34px 30px 24px;background:linear-gradient(170deg,var(--fondo),var(--blanco));}
-  .hd .tag{display:inline-flex;align-items:center;gap:6px;font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--coral);font-weight:700;background:var(--coral-light);padding:5px 13px;border-radius:20px;border:1px solid #f0c4b8;margin-bottom:18px;}
-  .hd .tag i{font-size:8px;}
-  .hd h1{font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:.92;color:var(--texto);letter-spacing:1px;}
-  .hd h1 .a{color:var(--coral);}
-  .hd h1 .b{color:var(--verde);}
-  .hd p{margin-top:12px;font-size:12.5px;color:var(--texto2);line-height:1.65;max-width:440px;}
+.tarjeta{width:400px;max-width:92vw;background:var(--blanco);border-radius:16px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04),0 20px 60px rgba(0,0,0,.08);text-align:center;position:relative;animation:tIn .7s cubic-bezier(.22,.68,0,1.1) both}
+@keyframes tIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 
-  .ln{height:1px;background:var(--gris2);margin:0 30px;}
+.tarjeta .bar{position:absolute;left:0;top:0;bottom:0;width:4px;z-index:5;background:linear-gradient(180deg,var(--coral),var(--verde) 50%,var(--dorado))}
 
-  .que{padding:24px 30px 20px;}
-  .que .ql{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--verde);font-weight:700;margin-bottom:16px;}
-  .que-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-  .que-card{text-align:center;padding:18px 10px 16px;border-radius:10px;border:1px solid var(--gris2);transition:all .25s ease;}
-  .que-card:hover{border-color:var(--gris2);background:var(--fondo);transform:translateY(-2px);}
-  .que-card .qi{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:16px;color:#fff;}
-  .qi.qc1{background:var(--coral);}
-  .qi.qc2{background:var(--verde);}
-  .qi.qc3{background:var(--dorado);}
-  .que-card h4{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--texto);letter-spacing:.5px;line-height:1;}
-  .que-card p{font-size:10.5px;color:var(--texto3);margin-top:6px;line-height:1.5;}
+.t-top{padding:44px 28px 0;position:relative}
+.ring{width:86px;height:86px;margin:0 auto 22px;border-radius:50%;background:var(--fondo);display:flex;align-items:center;justify-content:center;position:relative}
+.ring::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--coral),var(--verde),var(--dorado),var(--coral));z-index:0;animation:spin 4s linear infinite}
+.ring::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--blanco);z-index:1}
+.ring i{position:relative;z-index:2;font-size:30px;color:var(--coral);animation:pp 2s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pp{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
-  .arm{padding:22px 30px;}
-  .arm .al{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:14px;}
-  .arm-list{display:flex;flex-direction:column;gap:8px;}
-  .arm-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;background:var(--gris);font-size:12px;color:var(--texto2);transition:all .2s ease;}
-  .arm-item:hover{background:var(--dorado-light);color:var(--dorado);}
-  .arm-item i{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;background:var(--blanco);color:var(--dorado);border:1px solid var(--gris2);}
-  .arm-item strong{color:var(--texto);font-weight:600;}
+.t-top h1{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:.92;color:var(--texto);letter-spacing:1px}
+.t-top h1 .a{color:var(--coral)}.t-top h1 .b{color:var(--verde)}
+.t-top p{margin-top:12px;font-size:12px;color:var(--texto2);line-height:1.6;padding:0 6px}
 
-  .disp{padding:20px 30px;display:flex;align-items:center;justify-content:center;gap:28px;}
-  .disp-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--texto3);font-weight:500;}
-  .disp-item i{font-size:18px;color:var(--texto2);}
-  .disp-sep{width:1px;height:20px;background:var(--gris2);}
+.t-feat{display:flex;justify-content:center;gap:18px;padding:24px 28px}
+.fd{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fdIn .4s ease forwards}
+.fd:nth-child(1){animation-delay:.3s}.fd:nth-child(2){animation-delay:.45s}.fd:nth-child(3){animation-delay:.6s}
+@keyframes fdIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fd-ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff}
+.fd-ic.c1{background:var(--coral)}.fd-ic.c2{background:var(--verde)}.fd-ic.c3{background:var(--dorado)}
+.fd span{font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--texto3);font-weight:600}
 
-  .cta{padding:24px 30px 28px;display:flex;align-items:center;gap:18px;background:var(--fondo);border-top:1px solid var(--gris2);}
-  .cta-info{flex:1;}
-  .cta-info .cl{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--verde);font-weight:700;margin-bottom:5px;}
-  .cta-info .cm{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--texto);letter-spacing:.8px;line-height:1;}
-  .cta-info .phone{font-size:20px;font-weight:700;color:var(--texto);margin-top:8px;display:flex;align-items:center;gap:8px;letter-spacing:.5px;}
-  .cta-info .phone i{color:var(--verde);font-size:13px;}
-  .cta-info .cs{font-size:10.5px;color:var(--texto3);margin-top:4px;}
-  .cta-btn{display:flex;align-items:center;gap:10px;padding:15px 24px;border-radius:10px;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .25s ease;text-decoration:none;white-space:nowrap;box-shadow:0 4px 18px rgba(37,211,102,.3);flex-shrink:0;}
-  .cta-btn:hover{background:#1fb855;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.4);}
-  .cta-btn:active{transform:translateY(0);}
-  .cta-btn i{font-size:20px;}
+.t-btn{padding:0 28px 28px}
+.btn-go{width:100%;padding:15px;border-radius:10px;border:none;background:var(--texto);color:var(--blanco);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .25s ease;opacity:0;animation:fdIn .4s ease .8s forwards}
+.btn-go:hover{background:var(--coral);transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,87,58,.25)}
+.btn-go:active{transform:translateY(0)}
+.btn-go i{font-size:11px;transition:transform .3s ease}
+.btn-go:hover i{transform:translateX(4px)}
 
-  @media(max-width:520px){
-    .hd{padding:26px 20px 20px;}
-    .hd h1{font-size:36px;}
-    .que{padding:20px 20px 16px;}
-    .que-grid{grid-template-columns:1fr;gap:8px;}
-    .que-card{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;}
-    .que-card .qi{margin:0;flex-shrink:0;width:34px;height:34px;}
-    .arm{padding:18px 20px;}
-    .cta{padding:20px;flex-direction:column;text-align:center;}
-    .cta-btn{width:100%;justify-content:center;}
-    .cta-info .phone{justify-content:center;}
-    .ln{margin:0 20px;}
-    .disp{padding:16px 20px;gap:16px;flex-wrap:wrap;}
-  }
+.t-foot{padding:14px 28px;background:var(--fondo);font-size:10px;color:var(--texto3);display:flex;align-items:center;justify-content:center;gap:6px}
+.t-foot i{color:var(--verde);font-size:9px}
+
+/* ===== FLYER ===== */
+.flyer-wrap{opacity:0;transform:translateY(20px);transition:opacity .7s ease .15s,transform .7s cubic-bezier(.22,.68,0,1.1) .15s;pointer-events:none}
+.flyer-wrap.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+
+.flyer{width:540px;max-width:98vw;background:var(--blanco);border-radius:14px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04),0 12px 40px rgba(0,0,0,.07),0 40px 80px rgba(0,0,0,.05);position:relative;transition:transform .4s cubic-bezier(.22,.68,0,1.1),box-shadow .4s ease}
+.flyer:hover{transform:translateY(-3px);box-shadow:0 2px 6px rgba(0,0,0,.04),0 16px 50px rgba(0,0,0,.1),0 50px 100px rgba(0,0,0,.07)}
+.flyer .bar{position:absolute;left:0;top:0;bottom:0;width:4px;z-index:5;background:linear-gradient(180deg,var(--coral),var(--verde) 50%,var(--dorado))}
+
+.hd{position:relative;padding:34px 30px 24px;background:linear-gradient(170deg,var(--fondo),var(--blanco))}
+.hd .tag{display:inline-flex;align-items:center;gap:6px;font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--coral);font-weight:700;background:var(--coral-light);padding:5px 13px;border-radius:20px;border:1px solid #f0c4b8;margin-bottom:18px}
+.hd .tag i{font-size:8px}
+.hd h1{font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:.92;color:var(--texto);letter-spacing:1px}
+.hd h1 .a{color:var(--coral)}.hd h1 .b{color:var(--verde)}
+.hd p{margin-top:12px;font-size:12.5px;color:var(--texto2);line-height:1.65;max-width:440px}
+
+.ln{height:1px;background:var(--gris2);margin:0 30px}
+
+.que{padding:24px 30px 20px}
+.que .ql{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--verde);font-weight:700;margin-bottom:16px}
+.que-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.que-card{text-align:center;padding:18px 10px 16px;border-radius:10px;border:1px solid var(--gris2);transition:all .25s ease}
+.que-card:hover{background:var(--fondo);transform:translateY(-2px)}
+.qi{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:16px;color:#fff}
+.qi.qc1{background:var(--coral)}.qi.qc2{background:var(--verde)}.qi.qc3{background:var(--dorado)}
+.que-card h4{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--texto);letter-spacing:.5px;line-height:1}
+.que-card p{font-size:10.5px;color:var(--texto3);margin-top:6px;line-height:1.5}
+
+.arm{padding:22px 30px}
+.arm .al{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:14px}
+.arm-list{display:flex;flex-direction:column;gap:8px}
+.arm-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;background:var(--gris);font-size:12px;color:var(--texto2);transition:all .2s ease}
+.arm-item:hover{background:var(--dorado-light);color:var(--dorado)}
+.arm-item i{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;background:var(--blanco);color:var(--dorado);border:1px solid var(--gris2)}
+.arm-item strong{color:var(--texto);font-weight:600}
+
+.disp{padding:20px 30px;display:flex;align-items:center;justify-content:center;gap:28px}
+.disp-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--texto3);font-weight:500}
+.disp-item i{font-size:18px;color:var(--texto2)}
+.disp-sep{width:1px;height:20px;background:var(--gris2)}
+
+.cta{padding:24px 30px 28px;display:flex;align-items:center;gap:18px;background:var(--fondo);border-top:1px solid var(--gris2)}
+.cta-info{flex:1}
+.cta-info .cl{font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:var(--verde);font-weight:700;margin-bottom:5px}
+.cta-info .cm{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--texto);letter-spacing:.8px;line-height:1}
+.cta-info .phone{font-size:20px;font-weight:700;color:var(--texto);margin-top:8px;display:flex;align-items:center;gap:8px;letter-spacing:.5px}
+.cta-info .phone i{color:var(--verde);font-size:13px}
+.cta-info .cs{font-size:10.5px;color:var(--texto3);margin-top:4px}
+.cta-btn{display:flex;align-items:center;gap:10px;padding:15px 24px;border-radius:10px;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .25s ease;text-decoration:none;white-space:nowrap;box-shadow:0 4px 18px rgba(37,211,102,.3);flex-shrink:0}
+.cta-btn:hover{background:#1fb855;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.4)}
+.cta-btn:active{transform:translateY(0)}
+.cta-btn i{font-size:20px}
+
+/* Boton volver */
+.volver{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;padding:10px 20px;border-radius:20px;border:1px solid var(--gris2);background:var(--blanco);color:var(--texto2);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:all .25s ease;box-shadow:0 4px 16px rgba(0,0,0,.06);gap:6px;align-items:center}
+.volver:hover{background:var(--fondo);border-color:var(--coral);color:var(--coral)}
+.volver.show{display:flex}
+
+@media(max-width:520px){
+.hd{padding:26px 20px 20px}.hd h1{font-size:36px}
+.que{padding:20px 20px 16px}.que-grid{grid-template-columns:1fr;gap:8px}
+.que-card{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px}
+.que-card .qi{margin:0;flex-shrink:0;width:34px;height:34px}
+.arm{padding:18px 20px}.cta{padding:20px;flex-direction:column;text-align:center}
+.cta-btn{width:100%;justify-content:center}.cta-info .phone{justify-content:center}
+.ln{margin:0 20px}.disp{padding:16px 20px;gap:16px;flex-wrap:wrap}
+.t-top{padding:36px 22px 0}.t-top h1{font-size:30px}.t-feat{padding:20px 22px}.t-btn{padding:0 22px 24px}
+}
 </style>
 </head>
 <body>
 
-<div class="flyer">
-  <div class="bar"></div>
-
-  <div class="hd">
-    <div class="tag"><i class="fa-solid fa-rocket"></i> Para emprendedores</div>
-    <h1>TU NEGOCIO<br>ORDENADO <span class="a">EN</span><br>DIGITAL <span class="b">DESDE HOY</span></h1>
-    <p>Te armo todo el sistema digital para que dejes de trabajar desordenado. Gmail profesional, planillas en la nube y acceso desde cualquier lugar.</p>
+<!-- ===== TARJETA DE PRESENTACION ===== -->
+<div class="presentacion" id="presentacion">
+  <div class="particulas">
+    <div class="part p1"></div>
+    <div class="part p2"></div>
+    <div class="part p3"></div>
   </div>
-
-  <div class="ln"></div>
-
-  <div class="que">
-    <div class="ql">Que incluye</div>
-    <div class="que-grid">
-      <div class="que-card">
-        <div class="qi qc1"><i class="fa-solid fa-envelope"></i></div>
-        <h4>NUEVO GMAIL</h4>
-        <p>Correo profesional con tu nombre de emprendimiento</p>
+  <div class="tarjeta">
+    <div class="bar"></div>
+    <div class="t-top">
+      <div class="ring">
+        <i class="fa-solid fa-rocket"></i>
       </div>
-      <div class="que-card">
-        <div class="qi qc2"><i class="fa-brands fa-google-drive"></i></div>
-        <h4>GOOGLE DRIVE</h4>
-        <p>Tus archivos en la nube, ordenados y seguros</p>
+      <h1>TU NEGOCIO<br>ORDENADO <span class="a">EN</span><br>DIGITAL <span class="b">DESDE HOY</span></h1>
+      <p>Gmail profesional, planillas en la nube y acceso desde cualquier lugar. Todo armado por mi para que vos te enfoques en vender.</p>
+    </div>
+    <div class="t-feat">
+      <div class="fd">
+        <div class="fd-ic c1"><i class="fa-solid fa-envelope"></i></div>
+        <span>Gmail</span>
       </div>
-      <div class="que-card">
-        <div class="qi qc3"><i class="fa-solid fa-table-cells-large"></i></div>
-        <h4>PLANILLAS</h4>
-        <p>Hojas de calculo listas para usar desde el dia 1</p>
+      <div class="fd">
+        <div class="fd-ic c2"><i class="fa-brands fa-google-drive"></i></div>
+        <span>Drive</span>
+      </div>
+      <div class="fd">
+        <div class="fd-ic c3"><i class="fa-solid fa-table-cells-large"></i></div>
+        <span>Planillas</span>
       </div>
     </div>
-  </div>
-
-  <div class="ln"></div>
-
-  <div class="arm">
-    <div class="al">Que armamos en tus planillas</div>
-    <div class="arm-list">
-      <div class="arm-item">
-        <i class="fa-solid fa-users"></i>
-        <span><strong>Base de clientes</strong> — nombre, contacto, datos, historial de compras</span>
-      </div>
-      <div class="arm-item">
-        <i class="fa-solid fa-calendar-day"></i>
-        <span><strong>Agenda diaria y mensual</strong> — tareas, reuniones, recordatorios</span>
-      </div>
-      <div class="arm-item">
-        <i class="fa-solid fa-list-check"></i>
-        <span><strong>Organizacion de actividades</strong> — que hacer, cuando y en que estado esta</span>
-      </div>
-      <div class="arm-item">
-        <i class="fa-solid fa-money-bill-wave"></i>
-        <span><strong>Control de ingresos y egresos</strong> — saber cuanto entra y cuanto sale</span>
-      </div>
-      <div class="arm-item">
-        <i class="fa-solid fa-boxes-stacked"></i>
-        <span><strong>Inventario o stock</strong> — que tenes, cuanto tenes, que falta</span>
-      </div>
+    <div class="t-btn">
+      <button class="btn-go" id="btnEntrar">
+        VER COMO LO HAGO
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+    <div class="t-foot">
+      <i class="fa-solid fa-circle-check"></i>
+      Servicio para emprendedores
     </div>
   </div>
-
-  <div class="ln"></div>
-
-  <div class="disp">
-    <div class="disp-item"><i class="fa-solid fa-laptop"></i> Funciona en PC</div>
-    <div class="disp-sep"></div>
-    <div class="disp-item"><i class="fa-solid fa-mobile-screen"></i> Funciona en celular</div>
-    <div class="disp-sep"></div>
-    <div class="disp-item"><i class="fa-solid fa-tablet-screen-button"></i> Funciona en tablet</div>
-  </div>
-
-  <div class="ln"></div>
-
-  <div class="cta">
-    <div class="cta-info">
-      <div class="cl">Empieza ahora</div>
-      <div class="cm">ESCRIBIME Y LO ARMAMOS JUNTOS</div>
-      <div class="phone"><i class="fa-solid fa-phone"></i> 11 3604-7671</div>
-      <div class="cs">Sin compromiso. Te cuento como funciona en 5 minutos.</div>
-    </div>
-    <a href="https://wa.me/5491136047671?text=Hola%2C%20vi%20el%20flyer%20de%20organizacion%20digital%20para%20emprendedores%20y%20me%20interesa." class="cta-btn" target="_blank" rel="noopener">
-      <i class="fa-brands fa-whatsapp"></i>
-      Escribime
-    </a>
-  </div>
-
 </div>
+
+<!-- ===== FLYER ===== -->
+<div class="flyer-wrap" id="flyerWrap">
+  <div class="flyer">
+    <div class="bar"></div>
+
+    <div class="hd">
+      <div class="tag"><i class="fa-solid fa-rocket"></i> Para emprendedores</div>
+      <h1>TU NEGOCIO<br>ORDENADO <span class="a">EN</span><br>DIGITAL <span class="b">DESDE HOY</span></h1>
+      <p>Te armo todo el sistema digital para que dejes de trabajar desordenado. Gmail profesional, planillas en la nube y acceso desde cualquier lugar.</p>
+    </div>
+
+    <div class="ln"></div>
+
+    <div class="que">
+      <div class="ql">Que incluye</div>
+      <div class="que-grid">
+        <div class="que-card">
+          <div class="qi qc1"><i class="fa-solid fa-envelope"></i></div>
+          <h4>NUEVO GMAIL</h4>
+          <p>Correo profesional con tu nombre de emprendimiento</p>
+        </div>
+        <div class="que-card">
+          <div class="qi qc2"><i class="fa-brands fa-google-drive"></i></div>
+          <h4>GOOGLE DRIVE</h4>
+          <p>Tus archivos en la nube, ordenados y seguros</p>
+        </div>
+        <div class="que-card">
+          <div class="qi qc3"><i class="fa-solid fa-table-cells-large"></i></div>
+          <h4>PLANILLAS</h4>
+          <p>Hojas de calculo listas para usar desde el dia 1</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ln"></div>
+
+    <div class="arm">
+      <div class="al">Que armamos en tus planillas</div>
+      <div class="arm-list">
+        <div class="arm-item">
+          <i class="fa-solid fa-users"></i>
+          <span><strong>Base de clientes</strong> — nombre, contacto, datos, historial de compras</span>
+        </div>
+        <div class="arm-item">
+          <i class="fa-solid fa-calendar-day"></i>
+          <span><strong>Agenda diaria y mensual</strong> — tareas, reuniones, recordatorios</span>
+        </div>
+        <div class="arm-item">
+          <i class="fa-solid fa-list-check"></i>
+          <span><strong>Organizacion de actividades</strong> — que hacer, cuando y en que estado esta</span>
+        </div>
+        <div class="arm-item">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          <span><strong>Control de ingresos y egresos</strong> — saber cuanto entra y cuanto sale</span>
+        </div>
+        <div class="arm-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span><strong>Inventario o stock</strong> — que tenes, cuanto tenes, que falta</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ln"></div>
+
+    <div class="disp">
+      <div class="disp-item"><i class="fa-solid fa-laptop"></i> Funciona en PC</div>
+      <div class="disp-sep"></div>
+      <div class="disp-item"><i class="fa-solid fa-mobile-screen"></i> Funciona en celular</div>
+      <div class="disp-sep"></div>
+      <div class="disp-item"><i class="fa-solid fa-tablet-screen-button"></i> Funciona en tablet</div>
+    </div>
+
+    <div class="ln"></div>
+
+    <div class="cta">
+      <div class="cta-info">
+        <div class="cl">Empieza ahora</div>
+        <div class="cm">ESCRIBIME Y LO ARMAMOS JUNTOS</div>
+        <div class="phone"><i class="fa-solid fa-phone"></i> 11 3604-7671</div>
+        <div class="cs">Sin compromiso. Te cuento como funciona en 5 minutos.</div>
+      </div>
+      <a href="https://wa.me/5491136047671?text=Hola%2C%20vi%20el%20flyer%20de%20organizacion%20digital%20para%20emprendedores%20y%20me%20interesa." class="cta-btn" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i>
+        Escribime
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Boton volver -->
+<button class="volver" id="btnVolver">
+  <i class="fa-solid fa-arrow-left"></i>
+  Volver
+</button>
+
+<script>
+var pres = document.getElementById('presentacion');
+var wrap = document.getElementById('flyerWrap');
+var volver = document.getElementById('btnVolver');
+
+document.getElementById('btnEntrar').addEventListener('click', function() {
+  pres.classList.add('salida');
+  setTimeout(function() {
+    pres.style.display = 'none';
+    wrap.classList.add('visible');
+    setTimeout(function() {
+      volver.classList.add('show');
+    }, 800);
+  }, 600);
+});
+
+volver.addEventListener('click', function() {
+  wrap.classList.remove('visible');
+  volver.classList.remove('show');
+  setTimeout(function() {
+    pres.style.display = 'flex';
+    pres.classList.remove('salida');
+  }, 300);
+});
+</script>
 
 </body>
 </html>
